@@ -1,0 +1,7 @@
+cryptography>=39.0.1
+Django>=4.1.4
+djangorestframework>=3.14.0
+drf-spectacular>=0.25.1
+Pillow>=9.4.0
+PyMySQL>=1.0.2
+black>=23.1.0
