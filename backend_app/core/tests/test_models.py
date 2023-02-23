@@ -1,6 +1,6 @@
 from django.test import TestCase, Client
 from django.contrib.auth import get_user_model
-from core.models import Blog
+from core.models import Blog, CampingTag, BlogTag
 
 
 def create_user(**kwargs):
@@ -52,3 +52,15 @@ class ModelTest(TestCase):
             user=self.user, title=title, content=content, **kwargs
         )
         self.assertEqual(str(blog), blog.title)
+
+    def test_create_blog_tag(self):
+        name = "tag1"
+        blog_tag = BlogTag.objects.create(name=name)
+
+        self.assertEqual(str(blog_tag), name)
+
+    def test_creat_camping_tag(self):
+        name = "tag1"
+        camping_tag = CampingTag.objects.create(name=name)
+
+        self.assertEqual(str(camping_tag), name)
