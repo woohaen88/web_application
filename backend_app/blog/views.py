@@ -33,11 +33,16 @@ class BlogAPIView(
         return super().perform_create(serializer)
 
 
-class BlogTagApiView(ListAPIView, GenericViewSet):
+class BlogTagApiView(RetrieveUpdateAPIView, ListAPIView, GenericViewSet):
     serializer_class = TagInSerializer
     permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
     queryset = BlogTag.objects.all()
+
+    def get_serializer_class(self):
+        if self.action == "list":
+            return TagOutSerializer
+        return self.serializer_class
 
     def get_queryset(self):
         return self.queryset.filter(user=self.request.user)

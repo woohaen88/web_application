@@ -10,6 +10,10 @@ from core.models import BlogTag
 TAG_URL = reverse("blog:blogtag-list")
 
 
+def detail_url(tag_id):
+    return reverse("blog:blogtag-detail", args=[tag_id])
+
+
 def create_user(**kwargs):
     email = kwargs.pop("email", "user@example.com")
     password = kwargs.pop("password", "test123!@#")
@@ -69,7 +73,16 @@ class PrivateBlogTagAPIsTest(TestCase):
 
     def test_successful_when_the_authenticated_user_modifies_the_tag(self):
         """인증유져가 태그 수정시 성공"""
-        pass
+        tag = create_tag(self.user, name="haha")
+
+        payload = dict(name="new haha")
+        url = detail_url(tag.id)
+        res = self.client.put(url, payload)
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+
+        tag.refresh_from_db()
+        self.assertEqual(res.data[0].get("name"), payload["name"])
+        self.assertEqual(res.data[0].get("slug"), tag.slug)
 
     def test_failed_when_an_authenticated_user_modifies_another_user_tag(self):
         """인증유져가 다른유져의 태그 수정시 실패"""
