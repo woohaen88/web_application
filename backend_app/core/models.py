@@ -101,8 +101,12 @@ class TagModel(models.Model):
 
 
 class BlogTag(TagModel):
-    pass
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, related_name="blogtag"
+    )
 
 
 class CampingTag(TagModel):
-    pass
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, related_name="campingtag"
+    )

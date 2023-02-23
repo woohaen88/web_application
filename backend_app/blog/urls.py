@@ -3,7 +3,11 @@ from blog import views
 from django.urls import include, path
 
 router = DefaultRouter()
+router.register("tag", views.BlogTagApiView)
 router.register("", views.BlogAPIView)
 
+
 app_name = "blog"
-urlpatterns = [path("", include(router.urls))]
+urlpatterns = [
+    path("", include(router.urls)),
+]

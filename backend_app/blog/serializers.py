@@ -4,9 +4,11 @@ from user.serializers import UserOutSerializer
 
 
 class TagInSerializer(serializers.ModelSerializer):
+    user = UserOutSerializer(read_only=True)
+
     class Meta:
         model = BlogTag
-        fields = ["id", "name"]
+        fields = ["id", "name", "user"]
         read_only_fields = ["id"]
 
 

@@ -55,12 +55,12 @@ class ModelTest(TestCase):
 
     def test_create_blog_tag(self):
         name = "tag1"
-        blog_tag = BlogTag.objects.create(name=name)
+        blog_tag = BlogTag.objects.create(user=self.user, name=name)
 
         self.assertEqual(str(blog_tag), name)
 
     def test_creat_camping_tag(self):
         name = "tag1"
-        camping_tag = CampingTag.objects.create(name=name)
+        camping_tag = CampingTag.objects.create(user=self.user, name=name)
 
         self.assertEqual(str(camping_tag), name)
